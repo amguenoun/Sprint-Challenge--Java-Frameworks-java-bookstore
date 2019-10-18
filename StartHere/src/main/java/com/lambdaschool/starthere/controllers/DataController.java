@@ -26,4 +26,10 @@ public class DataController {
 		bookService.addBookToAuthor(bookid,authorid);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+
+	@DeleteMapping(value = "/books/{id}")
+	public ResponseEntity<?> deleteBook(@PathVariable long id){
+		bookService.delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
