@@ -21,4 +21,9 @@ public class DataController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/books/{bookid}/authors/{authorid}")
+	public ResponseEntity<?> AssignBookToAuthor(@PathVariable long bookid, @PathVariable long authorid){
+		bookService.addBookToAuthor(bookid,authorid);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
 }
