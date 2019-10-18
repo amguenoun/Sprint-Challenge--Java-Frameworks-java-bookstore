@@ -41,6 +41,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                          "/oauth/revoke-token",
                          "/logout")
             .authenticated()
+            .antMatchers("/books/**", "/authors/**")
+            .hasAnyRole("USER", "DATA", "ADMIN")
+            .antMatchers("/data/**")
+            .hasAnyRole("DATA", "ADMIN")
             // restrict application data...
             // .antMatchers("/books", "/authors").hasAnyRole("ADMIN", "USER", "DATA")
             // .antMatchers("/data/**").hasAnyRole("ADMIN", "DATA")
