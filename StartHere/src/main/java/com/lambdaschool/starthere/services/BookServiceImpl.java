@@ -30,36 +30,36 @@ public class BookServiceImpl implements BookService {
 
 	@Transactional
 	@Override
-	public Book update(Book book) {
-		Book newBook = new Book();
+	public Book update(Book book, long id) {
+		Book currentBook = bookRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book Id: " + id + " not found."));
 
 		if(book.getAuthors() != null){
-			newBook.setAuthors(book.getAuthors());
+			currentBook.setAuthors(book.getAuthors());
 		}
 
 		if(book.getBooktitle() != null){
-			newBook.setBooktitle(book.getBooktitle());
+			currentBook.setBooktitle(book.getBooktitle());
 		}
 
 		if(book.getCopy() > 0){
-			newBook.setCopy(book.getCopy());
+			currentBook.setCopy(book.getCopy());
 		}
 
 		if(book.getISBN() != null){
-			newBook.setISBN(book.getISBN());
+			currentBook.setISBN(book.getISBN());
 		}
 
 		if(book.getSection() != null){
-			newBook.setSection(book.getSection());
+			currentBook.setSection(book.getSection());
 		}
 
 		if(book.getAuthors().size() > 0){
 			for(Author a : book.getAuthors()){
-				newBook.getAuthors().add(a);
+				currentBook.getAuthors().add(a);
 			}
 		}
 
-		return bookRepo.save(newBook);
+		return bookRepo.save(currentBook);
 	}
 
 	@Transactional

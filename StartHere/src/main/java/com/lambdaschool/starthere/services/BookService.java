@@ -8,7 +8,7 @@ import java.util.List;
 public interface BookService {
 	List<Book> findAll(Pageable pageable);
 
-	Book update(Book book);
+	Book update(Book book, long id);
 
 	void addBookToAuthor(long bookid, long authorid);
 
