@@ -1,7 +1,6 @@
 package com.lambdaschool.starthere.config;
 
 import com.fasterxml.classmate.TypeResolver;
-import com.lambdaschool.starthere.models.APIOpenLibrary;
 import com.lambdaschool.starthere.models.ErrorDetail;
 import com.lambdaschool.starthere.models.TokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -41,19 +39,15 @@ public class Swagger2Config
                                                       .ignoredParameterTypes(Pageable.class) // allows only my paging parameter list
                                                       .apiInfo(apiEndPointsInfo())
                                                       .pathMapping("/")
-                                                      .additionalModels(resolver.resolve(APIOpenLibrary.class),
-                                                                        resolver.resolve(TokenModel.class),
+                                                      .additionalModels(resolver.resolve(TokenModel.class),
                                                                         resolver.resolve(ErrorDetail.class))
                                                       .ignoredParameterTypes(SimpleGrantedAuthority.class);
     }
 
     private ApiInfo apiEndPointsInfo()
     {
-        return new ApiInfoBuilder().title("Java Spring Back End Starting Project")
-                                   .description("A starting application for developing Java Spring Back End Projects")
-                                   .contact(new Contact("John Mitchell",
-                                                        "http://www.lambdaschool.com",
-                                                        "john@lambdaschool.com"))
+        return new ApiInfoBuilder().title("Java Book Store API")
+                                   .description("A Book Store Java API")
                                    .license("MIT")
                                    .licenseUrl("https://github.com/LambdaSchool/java-starthere/blob/master/LICENSE")
                                    .version("1.0.0")
