@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/authors")
@@ -31,4 +31,22 @@ public class AuthorController {
 	public ResponseEntity<?> getAllAuthors(@PageableDefault(page = 0, size = 5) Pageable pageable){
 		return new ResponseEntity<>(authorService.findAll(pageable), HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/author/{id}", produces = {"application/json"})
+	public ResponseEntity<?> getAuthorById(@PathVariable long id){
+		return new ResponseEntity<>(authorService.findById(id), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/author/{id}")
+	public ResponseEntity<?> deleteAuthor(@PathVariable long id){
+		authorService.delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/author", consumes = {"application/json"})
+	public ResponseEntity<?> createAuthor(@Valid @RequestBody Author author){
+		authorService.save(author);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 }
