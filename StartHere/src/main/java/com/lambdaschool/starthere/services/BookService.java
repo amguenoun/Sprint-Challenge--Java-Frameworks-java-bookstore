@@ -8,6 +8,10 @@ import java.util.List;
 public interface BookService {
 	List<Book> findAll(Pageable pageable);
 
+	Book findById(long id);
+
+	Book save(Book book);
+
 	Book update(Book book, long id);
 
 	void addBookToAuthor(long bookid, long authorid);

@@ -28,6 +28,29 @@ public class BookServiceImpl implements BookService {
 		return books;
 	}
 
+	@Override
+	public Book findById(long id) {
+		return bookRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book Id: " + id + " not found."));
+	}
+
+	@Override
+	public Book save(Book book) {
+		Book newBook = new Book();
+
+		newBook.setBooktitle(book.getBooktitle());
+		newBook.setISBN(book.getISBN());
+		newBook.setCopy(book.getCopy());
+		newBook.setSection(book.getSection());
+
+		if(book.getAuthors().size() > 0){
+			for(Author a: book.getAuthors()){
+				newBook.getAuthors().add(a);
+			}
+		}
+
+		return bookRepo.save(newBook);
+	}
+
 	@Transactional
 	@Override
 	public Book update(Book book, long id) {
